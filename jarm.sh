@@ -9,9 +9,12 @@ if [ ! $# -eq 2 ]
  fi
 
 input=$1
+N=40
+(
 while IFS= read -r line
 do
+  ((i=i%N)); ((i++==0)) && wait
   python3 jarm.py $line -v -o $2 &
 done < "$input"
-
+)
 wait
